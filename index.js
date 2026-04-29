@@ -102,6 +102,9 @@ function generarPaginaHTML(datos) {
     </html>`;
 }
 
-servidor.listen(3000, () => {
-    console.log(">>> SERVIDOR ACTIVO EN http://localhost:3000");
+// Render nos da el puerto en process.env.PORT
+const PORT = process.env.PORT || 3000;
+
+servidor.listen(PORT, '0.0.0.0', () => {
+    console.log(`>>> SERVIDOR ACTIVO EN PUERTO ${PORT}`);
 });
