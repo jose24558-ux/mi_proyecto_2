@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Productos - PAEC</title>
+    <style>
+        /* Variables de colores para un diseño consistente */
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --accent: #3b82f6;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: var(--text-main);
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.025em;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        .btn-cargar {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-cargar:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-1px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        #contenedor-productos {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        /* Estilo de las tarjetas de producto */
+        .producto-card {
+            background: var(--card-bg);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .producto-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 4px;
+            background: var(--accent);
+        }
+
+        .producto-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .producto-id {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .producto-nombre {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin: 0 0 1rem 0;
+            color: var(--text-main);
+        }
+
+        .producto-precio-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .producto-precio {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .error-msg {
+            background: #fef2f2;
+            color: #991b1b;
+            padding: 1.5rem;
+            border-radius: 0.8rem;
+            border: 1px solid #fee2e2;
+            text-align: center;
+            grid-column: 1 / -1;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Mis Productos</h1>
+        <p class="subtitle">Inventario conectado a MariaDB</p>
+    </div>
+
+    <button class="btn-cargar" onclick="cargarProductos()">
+        <span>🔄</span> Actualizar Inventario
+    </button>
+
+    <div id="contenedor-productos">
+        </div>
+
+    <script>
+        async function cargarProductos() {
+            const contenedor = document.getElementById('contenedor-productos');
+            contenedor.innerHTML = '<div style="grid-column: 1/-1; text-align: center;">Cargando productos...</div>';
+
+            try {
+                const respuesta = await fetch('http://localhost:3000');
+                const resultado = await respuesta.json();
+
+                if (resultado.status === "OK") {
+                    contenedor.innerHTML = ""; // Limpiar
+
+                    resultado.datos.forEach(p => {
+                        contenedor.innerHTML += `
+                            <div class="producto-card">
+                                <div class="producto-id">REF: #${p.id}</div>
+                                <h2 class="producto-nombre">${p.nombre}</h2>
+                                <div class="producto-precio-label">Precio Actual</div>
+                                <div class="producto-precio">$${p.precio.toLocaleString()}</div>
+                            </div>
+                        `;
+                    });
+                }
+            } catch (error) {
+                contenedor.innerHTML = `
+                    <div class="error-msg">
+                        <strong>⚠️ No se pudo conectar con la API</strong><br>
+                        Verifica que tu servidor Node.js esté corriendo.
+                    </div>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>
