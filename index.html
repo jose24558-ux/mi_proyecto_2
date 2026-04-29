@@ -157,7 +157,8 @@
             contenedor.innerHTML = '<div style="grid-column: 1/-1; text-align: center;">Cargando productos...</div>';
 
             try {
-                const respuesta = await fetch('http://localhost:3000');
+                // Busca esta línea y déjala así:
+                const respuesta = await fetch('https://mi-proyecto-2-1-67wn.onrender.com');
                 const resultado = await respuesta.json();
 
                 if (resultado.status === "OK") {
