@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 const http = require('http');
 const mariadb = require('mariadb');
 const fs = require('fs');
@@ -109,7 +109,6 @@ const PORT = process.env.PORT || 3000; // Render asigna el puerto automáticamen
 servidor.listen(PORT, '0.0.0.0', () => {
     console.log(`>>> SERVIDOR ACTIVO EN EL PUERTO ${PORT}`);
 });
-=======
 const http = require('http');
 const mariadb = require('mariadb');
 const fs = require('fs');
@@ -220,4 +219,3 @@ const PORT = process.env.PORT || 3000;
 servidor.listen(PORT, '0.0.0.0', () => {
     console.log(`>>> SERVIDOR ACTIVO EN PUERTO ${PORT}`);
 });
->>>>>>> 3476141a82d066398f86ab05a4df23f4a6b01b8d
