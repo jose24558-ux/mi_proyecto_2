@@ -63,7 +63,7 @@ function generarPaginaHTML(datos) {
     </head>
     <body>
         <div class="card">
-            <h1>🚀 Mi Inventario en la Nube</h1>
+            <h1>REGISTRO DE INVENTARIO Y COMPRAS GEO</h1>
             <table>
                 <thead>
                     <tr><th>ID</th><th>Producto</th><th>Precio</th><th>Existencia</th></tr>
