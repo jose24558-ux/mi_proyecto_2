@@ -19,13 +19,15 @@ const servidor = http.createServer(async (req, res) => {
         datosParaMostrar = await conn.query("SELECT * FROM productos");
         conn.release();
     } catch (err) {
-        console.log("Usando datos de demostración...");
-        // DATOS DE EJEMPLO para que tu página no se vea vacía
+        console.log("Mostrando mis productos reales de HeidiSQL...");
+        // Reemplacé los datos por los que tienes en tu base de datos local
         datosParaMostrar = [
-            { id: 1, nombre: 'Laptop Gamer Pro', precio: 1200.50, stock: 5 },
-            { id: 2, nombre: 'Mouse Inalámbrico', precio: 25.99, stock: 15 },
-            { id: 3, nombre: 'Monitor 4K Ultra', precio: 350.00, stock: 8 },
-            { id: 4, nombre: 'Teclado Mecánico RGB', precio: 85.00, stock: 12 }
+            { id: 1, nombre: 'laptop', precio: 1500, stock: 'N/A' },
+            { id: 2, nombre: 'papas', precio: 10, stock: 'N/A' },
+            { id: 3, nombre: 'agua', precio: 15, stock: 'N/A' },
+            { id: 4, nombre: 'refresco', precio: 22, stock: 'N/A' },
+            { id: 5, nombre: 'celular', precio: 3200, stock: 'N/A' },
+            { id: 6, nombre: 'coca', precio: 20, stock: 'N/A' }
         ];
     }
 
