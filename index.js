@@ -27,7 +27,9 @@ const servidor = http.createServer(async (req, res) => {
             { id: 3, nombre: 'agua', precio: 15, stock: 'N/A' },
             { id: 4, nombre: 'refresco', precio: 22, stock: 'N/A' },
             { id: 5, nombre: 'celular', precio: 3200, stock: 'N/A' },
-            { id: 6, nombre: 'coca', precio: 20, stock: 'N/A' }
+            { id: 6, nombre: 'coca', precio: 20, stock: 'N/A' },
+            { id: 7, nombre: 'sopa', precio: 12, stock: 'N/A'},
+            
         ];
     }
 
